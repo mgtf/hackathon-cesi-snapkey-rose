@@ -71,7 +71,23 @@ async function fetchWhileResults(params) {
 }
 
 // fetchParams(params).then(console.log);
-fetchWhileResults(params).then(data => {
-    const str = JSON.stringify(data);
-    console.log(str);
-});
+// fetchWhileResults(params).then(data => {
+//     const str = JSON.stringify(data);
+//     console.log(str);
+// });
+
+let monJson = require('./codePostal.json');
+
+async function queryAll(params){
+    const datas = []
+    const cp = {...params}
+    for (let codePostal of monJson){
+        cp.location = codePostal.fields.postal_code;
+        cp.location_zip_code = codePostal.fields.postal_code
+        const data = await fetchWhileResults(cp);
+        datas.push(data);
+    }
+   
+    return datas;
+}
+queryAll(params).then(console.log)
