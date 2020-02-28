@@ -44,7 +44,7 @@ async function fetchWhileResults(params) {
                 console.log('no results at all')
             }
         } else {
-            const firstUrl = datas[0].url;
+            const firstUrl = datas[0].data[0].url;
             const currFirst = data[0].url;
 
             console.log(firstUrl);
@@ -71,4 +71,7 @@ async function fetchWhileResults(params) {
 }
 
 // fetchParams(params).then(console.log);
-fetchWhileResults(params).then(console.log);
+fetchWhileResults(params).then(data => {
+    const str = JSON.stringify(data);
+    console.log(str);
+});
