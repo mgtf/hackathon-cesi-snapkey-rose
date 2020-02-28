@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/mgtf/hackathon-cesi-snapkey-rose/issues"
   },
-  "homepage": "https://github.com/mgtf/hackathon-cesi-snapkey-rose#readme"
+  "homepage": "https://github.com/mgtf/hackathon-cesi-snapkey-rose#readme",
+  "dependencies": {
+    "node-fetch": "^2.6.0"
+  }
 }
