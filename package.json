@@ -1,0 +1,20 @@
+{
+  "name": "hackathon-cesi-snapkey-rose",
+  "version": "1.0.0",
+  "description": "scrapping",
+  "main": "index.js",
+  "scripts": {
+    "test": "test",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mgtf/hackathon-cesi-snapkey-rose.git"
+  },
+  "author": "rose",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mgtf/hackathon-cesi-snapkey-rose/issues"
+  },
+  "homepage": "https://github.com/mgtf/hackathon-cesi-snapkey-rose#readme"
+}
