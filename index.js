@@ -100,7 +100,23 @@ let monJson = require('./codePostal.json');
 //     for (let codePostal of monJson){
 //         cp.location = codePostal.fields.postal_code;
 //         cp.location_zip_code = codePostal.fields.postal_code
-//         const data = await fetchWhileResults(cp);
+//         const data = await fetchWhileResults(cp).then(data => {
+  
+//             //const str = JSON.stringify(data);
+//            // console.log(str);
+//            data.forEach(element => {
+//                element.data.forEach(elements =>{
+//                    buffer += elements.transaction_type + "," + elements.realty_type + "," +elements.code.split(' ')[0] + "," + elements.price + "," + elements.surface + "\r\n"
+        
+//                })
+//            });
+//           // console.log(buffer)
+//            fs.writeFile('fichier.csv', buffer, function(err) {
+//             // If an error occurred, show it and return
+//             if(err) return console.error(err);
+//             // Successfully wrote to the file!
+//           });
+//         });
 //         datas.push(data);
 //     }
    
@@ -128,7 +144,7 @@ async function queryAllParis(params){
             if(err) return console.error(err);
             // Successfully wrote to the file!
           });
-        });;
+        });
         datas.push(data);
     }
    
