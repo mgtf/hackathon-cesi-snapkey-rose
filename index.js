@@ -74,38 +74,66 @@ async function fetchWhileResults(params) {
 let buffer = "";
 
 // fetchParams(params).then(console.log);
-fetchWhileResults(params).then(data => {
+// fetchWhileResults(params).then(data => {
   
-    //const str = JSON.stringify(data);
-   // console.log(str);
-   data.forEach(element => {
-       element.data.forEach(elements =>{
-           buffer += elements.transaction_type + "," + elements.realty_type + "," +elements.code.split(' ')[0] + "," + elements.price + "," + elements.surface + "\r\n"
+//     //const str = JSON.stringify(data);
+//    // console.log(str);
+//    data.forEach(element => {
+//        element.data.forEach(elements =>{
+//            buffer += elements.transaction_type + "," + elements.realty_type + "," +elements.code.split(' ')[0] + "," + elements.price + "," + elements.surface + "\r\n"
 
-       })
-   });
-  // console.log(buffer)
-   fs.writeFile('fichier.csv', buffer, function(err) {
-    // If an error occurred, show it and return
-    if(err) return console.error(err);
-    // Successfully wrote to the file!
-  });
-});
+//        })
+//    });
+//   // console.log(buffer)
+//    fs.writeFile('fichier.csv', buffer, function(err) {
+//     // If an error occurred, show it and return
+//     if(err) return console.error(err);
+//     // Successfully wrote to the file!
+//   });
+// });
 
 let monJson = require('./codePostal.json');
 
-async function queryAll(params){
+// async function queryAll(params){
+//     const datas = []
+//     const cp = {...params}
+//     for (let codePostal of monJson){
+//         cp.location = codePostal.fields.postal_code;
+//         cp.location_zip_code = codePostal.fields.postal_code
+//         const data = await fetchWhileResults(cp);
+//         datas.push(data);
+//     }
+   
+//     return datas;
+// }
+async function queryAllParis(params){
     const datas = []
     const cp = {...params}
-    for (let codePostal of monJson){
-        cp.location = codePostal.fields.postal_code;
-        cp.location_zip_code = codePostal.fields.postal_code
-        const data = await fetchWhileResults(cp);
+    for (let codePostal of ['75001','75002', '75003', '75004', '75005', '75006', '75007', '75008', '75009', '75010', '75011', '75012', '75013', '75014', '75015', '75016', '75017', '75018','75019','75020']){
+        cp.location = codePostal;
+        cp.location_zip_code = codePostal
+        const data = await fetchWhileResults(cp).then(data => {
+  
+            //const str = JSON.stringify(data);
+           // console.log(str);
+           data.forEach(element => {
+               element.data.forEach(elements =>{
+                   buffer += elements.transaction_type + "," + elements.realty_type + "," +elements.code.split(' ')[0] + "," + elements.price + "," + elements.surface + "\r\n"
+        
+               })
+           });
+          // console.log(buffer)
+           fs.writeFile('fichier.csv', buffer, function(err) {
+            // If an error occurred, show it and return
+            if(err) return console.error(err);
+            // Successfully wrote to the file!
+          });
+        });;
         datas.push(data);
     }
    
     return datas;
 }
 
-//queryAll(params).then(console.log)
+queryAllParis(params);
 
