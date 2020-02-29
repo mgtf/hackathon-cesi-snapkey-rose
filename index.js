@@ -9,7 +9,7 @@ function encodeQueryData(data) {
       ret.push(encodeURIComponent(d) + '=' + encodeURIComponent(data[d]));
     return ret.join('&');
  }
-
+ 
 const API_BASE = 'https://www.bureauxlocaux.com/recherche/?';
 const params = {
     location_type: 'zip_code',
@@ -25,6 +25,7 @@ async function fetchParams(params) {
     const sParams = encodeQueryData(params);
     const full_url = API_BASE + sParams;
     console.log('GET ' + full_url);
+    
     return await fetch(full_url)
         .then(r => r.text())
         .then(myParsing.parse_result_page);
@@ -78,14 +79,17 @@ let buffer = "";
   
 //     //const str = JSON.stringify(data);
 //    // console.log(str);
+//    buffer = "type_de_transaction,type_de_bien,code_postal,prix_m2_an,surface\r\n";
 //    data.forEach(element => {
 //        element.data.forEach(elements =>{
+           
+        
 //            buffer += elements.transaction_type + "," + elements.realty_type + "," +elements.code.split(' ')[0] + "," + elements.price + "," + elements.surface + "\r\n"
 
 //        })
 //    });
 //   // console.log(buffer)
-//    fs.writeFile('fichier.csv', buffer, function(err) {
+//    fs.writeFile('rose.csv', buffer, function(err) {
 //     // If an error occurred, show it and return
 //     if(err) return console.error(err);
 //     // Successfully wrote to the file!
@@ -111,7 +115,7 @@ let monJson = require('./codePostal.json');
 //                })
 //            });
 //           // console.log(buffer)
-//            fs.writeFile('fichier.csv', buffer, function(err) {
+//            fs.writeFile('rose.csv', buffer, function(err) {
 //             // If an error occurred, show it and return
 //             if(err) return console.error(err);
 //             // Successfully wrote to the file!
@@ -125,6 +129,7 @@ let monJson = require('./codePostal.json');
 async function queryAllParis(params){
     const datas = []
     const cp = {...params}
+    buffer = "type_de_transaction,type_de_bien,code_postal,prix_m2_an,surface\r\n";
     for (let codePostal of ['75001','75002', '75003', '75004', '75005', '75006', '75007', '75008', '75009', '75010', '75011', '75012', '75013', '75014', '75015', '75016', '75017', '75018','75019','75020']){
         cp.location = codePostal;
         cp.location_zip_code = codePostal
@@ -132,6 +137,7 @@ async function queryAllParis(params){
   
             //const str = JSON.stringify(data);
            // console.log(str);
+          
            data.forEach(element => {
                element.data.forEach(elements =>{
                    buffer += elements.transaction_type + "," + elements.realty_type + "," +elements.code.split(' ')[0] + "," + elements.price + "," + elements.surface + "\r\n"
@@ -139,7 +145,7 @@ async function queryAllParis(params){
                })
            });
           // console.log(buffer)
-           fs.writeFile('fichier.csv', buffer, function(err) {
+           fs.writeFile('rose.csv', buffer, function(err) {
             // If an error occurred, show it and return
             if(err) return console.error(err);
             // Successfully wrote to the file!
