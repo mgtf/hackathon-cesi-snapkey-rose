@@ -80,7 +80,7 @@ fetchWhileResults(params).then(data => {
    // console.log(str);
    data.forEach(element => {
        element.data.forEach(elements =>{
-           buffer += elements.transaction + "," +elements.code.split(' ')[0] + "," + elements.price + "," + elements.surface + "\r\n"
+           buffer += elements.transaction_type + "," + elements.realty_type + "," +elements.code.split(' ')[0] + "," + elements.price + "," + elements.surface + "\r\n"
 
        })
    });

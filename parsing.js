@@ -7,10 +7,10 @@ module.exports = {
 function parse_result_page(raw_html) {
     const $ = cheerio.load(raw_html);
     const datas = [];
-    const transaction = $(".form-search__locations button").text().trim();
-    // const transaction_type = transaction.split(' ')[0];
-    //  const realty_type = transaction.split(' ')[1];
-    
+    const transaction = $(".block-search-results__heading__top").text().trim();
+     const transaction_type = transaction.split(' ')[0];
+      const realty_type = transaction.split(' ')[1];
+ 
     $("ul.list-cards li").each(function() {
         const price = $(this).find(".item-card__price strong").text();
         if (price === '') {
@@ -29,7 +29,8 @@ function parse_result_page(raw_html) {
             price,
             surface,
             surface_unit,
-            transaction,
+            transaction_type,
+            realty_type,
              url
         });
     });
