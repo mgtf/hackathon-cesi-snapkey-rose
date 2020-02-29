@@ -1,4 +1,5 @@
 console.log("salut");
+var fs = require('fs');
 const fetch = require("node-fetch");
 const myParsing = require('./parsing.js')
 
@@ -33,6 +34,7 @@ async function fetchWhileResults(params) {
 
     let newData = true;
     const cp = {...params};
+    
     const datas = [];
 
     while (newData) {
@@ -66,15 +68,29 @@ async function fetchWhileResults(params) {
         console.log('Loaded page ' + cp.page + ' with ' + data.length + ' results');
         cp.page++;
     }
+     return datas;
+ }
 
-    return datas;
-}
+let buffer = "";
 
 // fetchParams(params).then(console.log);
-// fetchWhileResults(params).then(data => {
-//     const str = JSON.stringify(data);
-//     console.log(str);
-// });
+fetchWhileResults(params).then(data => {
+  
+    //const str = JSON.stringify(data);
+   // console.log(str);
+   data.forEach(element => {
+       element.data.forEach(elements =>{
+           buffer += elements.transaction + "," +elements.code.split(' ')[0] + "," + elements.price + "," + elements.surface + "\r\n"
+
+       })
+   });
+  // console.log(buffer)
+   fs.writeFile('fichier.csv', buffer, function(err) {
+    // If an error occurred, show it and return
+    if(err) return console.error(err);
+    // Successfully wrote to the file!
+  });
+});
 
 let monJson = require('./codePostal.json');
 
@@ -90,4 +106,6 @@ async function queryAll(params){
    
     return datas;
 }
-queryAll(params).then(console.log)
+
+//queryAll(params).then(console.log)
+
